@@ -915,6 +915,11 @@ public class DroidGap extends PhonegapActivity {
         		result.confirm(r);
         	}
         	
+            else if (reqOk && defaultValue != null && defaultValue.equals("oknesset_init:")) {
+                appView.setVisibility(View.VISIBLE);
+                ctx.spinnerStop();
+                result.confirm("OK");
+            }
         	// Show dialog
         	else {
 				final JsPromptResult res = result;
@@ -1175,10 +1180,15 @@ public class DroidGap extends PhonegapActivity {
         	}
 
         	// Make app view visible
-        	appView.setVisibility(View.VISIBLE);
-
-        	// Stop "app loading" spinner if showing
-       		this.ctx.spinnerStop();
+        	// ****
+        	// A quick fix for Open Knesset - the webview will only be visible when the 
+        	// the javascript sends a specific message "oknesset_init:". The latest version
+        	// of PhoneGap has a fix for this issue, so when upgrading to the latest PhoneGap
+        	// version, this fix will not be relevant
+//        	appView.setVisibility(View.VISIBLE);
+//
+//        	// Stop "app loading" spinner if showing
+//       		this.ctx.spinnerStop();
 
     		// Clear history, so that previous screen isn't there when Back button is pressed
     		if (this.ctx.clearHistory) {
